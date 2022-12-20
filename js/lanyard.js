@@ -97,6 +97,8 @@ async function setStatus({ discord_status, activities }) {
 }
 
 async function setSpotifyBar({ listening_to_spotify, spotify }) {
+  if (currentTimer) clearInterval(currentTimer);
+
   var bar = document.getElementById('spotify-innerbar');
   var bar2 = document.getElementById('spotify-time-end');
   var bar3 = document.getElementById('spotify-time-start');
@@ -128,10 +130,6 @@ async function setSpotifyBar({ listening_to_spotify, spotify }) {
   currentTimer = setInterval(() => {
     const date = new Date().getTime();
     let current = date - start;
-
-    if (current >= duration) {
-      clearInterval(currentTimer);
-    }
 
     spotifyTimeSet(current, 'spotify-time-start');
 
